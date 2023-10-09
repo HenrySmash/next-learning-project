@@ -1,0 +1,188 @@
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  // @include raleway(600);
+}
+
+h1,
+.h1 {
+  font-size: 1.8rem;
+  letter-spacing: 0;
+}
+
+h2,
+.h2 {
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+}
+
+h3,
+.h3 {
+  font-size: 1.4rem;
+  letter-spacing: 0;
+}
+
+h4,
+.h4 {
+  font-size: 1.3rem;
+  letter-spacing: 0;
+}
+
+h5,
+.h5 {
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+
+/* Paragraphs and body text */
+p,
+p a,
+span,
+caption {
+  // @include open(600);
+}
+
+p,
+.paragraph {
+  &,
+  &--large {
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+
+    @include from-tablet {
+      font-size: 1.6rem;
+    }
+
+    @include from-desktop {
+      font-size: 2rem;
+    }
+  }
+
+  &--medium {
+    font-size: 1.1rem;
+    font-weight: 400;
+
+    @include from-tablet {
+      font-size: 1.2rem;
+    }
+
+    @include from-desktop {
+      font-size: 1.6rem;
+    }
+  }
+
+  &--small {
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+
+
+    @include from-tablet {
+      font-size: 1.2rem;
+    }
+
+    @include from-desktop {
+      font-size: 1.6rem;
+    }
+  }
+
+  &--tiny {
+    font-size: 1.2rem;
+    letter-spacing: 0.03em;
+
+    @include from-tablet {
+      font-size: 1.2rem;
+    }
+
+    @include from-desktop {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+caption {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+
+  @include from-tablet {
+    font-size: 1rem;
+  }
+
+  @include from-desktop {
+    font-size: 1.4rem;
+  }
+}
+
+/* Links */
+.text-link {
+  color: inherit;
+  font-size: 1.1rem;
+
+  @include from-tablet {
+    font-size: 1.1rem;
+  }
+
+  @include from-desktop {
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    color: var(--color-black);
+  }
+}
+
+p {
+  a {
+    color: inherit;
+    font-size: inherit;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+/* Rich Text */
+// use parent classes to specify styles for text blocks
+.text-block {
+  p,
+  ul {
+    margin: 0 0 1.375em;
+
+    @include from-desktop {
+      margin: 0 0 1.5em;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  p {
+    min-height: 1.375em;
+
+    @include from-desktop {
+      min-height: 1.5em;
+    }
+
+  }
+}
+
+.text {
+  &--left {
+    text-align: left;
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--right {
+    text-align: right;
+  }
+}

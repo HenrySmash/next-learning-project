@@ -1,0 +1,46 @@
+@mixin from-mobile {
+  @media (min-width: $sm) { @content; }
+}
+
+@mixin from-tablet {
+  @media (min-width: $md) { @content; }
+}
+
+@mixin from-desktop {
+  @media (min-width: $lg) { @content; }
+}
+
+@mixin from-desktop-wide {
+  @media (min-width: $xl) { @content; }
+}
+
+@mixin from-desktop-extra-wide {
+  @media (min-width: $xxl) { @content; }
+}
+
+@mixin from-desktop-super-wide {
+  @media (min-width: $xxxl) { @content; }
+}
+
+
+
+// ===============================================
+// FONTS - EXAMPLE
+// ===============================================
+
+// @font-face {
+//   font-display: swap;
+//   font-family: 'Raleway';
+//   font-style: normal;
+//   font-weight: bold;
+//   src: url('/fonts/raleway/Raleway-Bold.woff2') format('woff2'),
+//     url('/fonts/raleway/Raleway-Bold.woff') format('woff'),
+//     url('/fonts/raleway/Raleway-Bold.ttf') format('truetype');
+// }
+
+
+// @mixin raleway($weight: normal, $style: normal) {
+//   font-family: 'Raleway';
+//   font-style: $style;
+//   font-weight: $weight;
+// }

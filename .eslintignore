@@ -1,0 +1,8 @@
+jest.config.js
+jest.setup.js
+next.config.js
+postcss.config.js
+sentry.client.config.ts
+sentry.edge.config.ts
+sentry.server.config.ts
+tailwind.config.js

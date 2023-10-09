@@ -9,8 +9,8 @@ import {
 import Link from 'next/link';
 import React from 'react';
 
-import { Logo } from 'components/icons';
 import { ThemeSwitch } from 'components/theme-switch';
+import { Logo } from 'assets/icons';
 
 export const Navbar = () => (
   <NextUINavbar maxWidth="xl" position="sticky">
@@ -45,11 +45,11 @@ export const Navbar = () => (
       <NavbarItem>
         <Link
           color="foreground"
+          className='text-large'
           href="/favorites"
         >
           Favorites
         </Link>
-        ß
       </NavbarItem>
       <NavbarItem className="hidden sm:flex gap-2">
         <ThemeSwitch />

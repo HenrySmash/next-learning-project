@@ -3,18 +3,16 @@ const path = require('path');
 const { withSentryConfig } = require("@sentry/nextjs");
 
 const nextConfig = {
-  output: 'standalone',
-  sentry: {
-    disableServerWebpackPlugin: true,
-    disableClientWebpackPlugin: true
-  },
-  images: {
-    remotePatterns: [],
-  },
+  reactStrictMode: true,
+    trailingSlash: true,
+    compress: true,
+    experimental: {
+        serverActions: true
+    },
   sassOptions: {
     includePaths: [path.join(__dirname, './src/assets/styles')],
     prependData: `@import "_mixins.scss"; @import "_breakpoints.scss";`
-  },
+}
 
 };
 

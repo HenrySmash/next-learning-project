@@ -1,6 +1,6 @@
 'use client';
 
-import { useFavoritesContext } from 'utils/FavoritesContext';
+import { useFavoritesContext } from 'context/favorites-context';
 import { Data } from 'types';
 import {
   Button,

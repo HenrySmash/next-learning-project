@@ -29,11 +29,13 @@
     "encoding": "^0.1.13",
     "eslint-plugin-require-explicit-generics": "^0.4.2",
     "framer-motion": "^10.16.4",
+    "lucide-react": "^0.284.0",
     "next": "^13.5.4",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.47.0",
     "sass": "^1.63.6",
     "sharp": "^0.32.3",
     "winston": "^3.10.0"

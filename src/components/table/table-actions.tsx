@@ -1,9 +1,9 @@
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import { DetailsLogo, HeartFilledIcon, HeartOutlineIcon } from '../icons';
+import { DetailsLogo, HeartFilledIcon, HeartOutlineIcon } from '../../assets/icons';
 import { Data } from 'types';
 import { ADD_ITEM, REMOVE_ITEM } from 'utils/actions';
-import { useFavoritesContext } from 'utils/FavoritesContext';
+import { useFavoritesContext } from 'context/favorites-context';
 
 interface TableActionsProps {
   item: Data;

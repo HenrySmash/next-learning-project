@@ -1,0 +1,36 @@
+{
+  "plugins": [
+    "stylelint-selector-bem-pattern",
+    "stylelint-order",
+    "stylelint-scss"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.scss"
+      ],
+      "extends": [
+        "stylelint-config-sass-guidelines"
+      ]
+    }
+  ],
+  "rules": {
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global"
+        ]
+      }
+    ],
+    "max-nesting-depth": 3,
+    "no-eol-whitespace": true,
+    "plugin/selector-bem-pattern": {
+      "preset": "bem",
+      "implicitComponents": [
+        "src/components/**/*.scss",
+        "src/app/**/*.scss"
+      ]
+    }
+  }
+}

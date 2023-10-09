@@ -1,13 +1,89 @@
-// interface TableFilterProps {
-//   item: string[];
-// }
 
-// export default function TableActions({
-//   searchInput, filters
-// }: TableFilterProps) {
-//   return (
-//     <div className="relative flex justify-center items-center gap-2">
+import { FilterX, Search } from 'lucide-react';
+import React, { useCallback } from 'react';
 
-//     </div>
-//   );
-// }
+import { Button } from '../button';
+import { Input } from '../input';
+import { Select } from '../select';
+import classNames from 'utils/classnames';
+
+export interface Filter {
+  placeholder?: string;
+  value: string | undefined;
+  onChange: (newValue: string | undefined) => void;
+}
+export interface FilterDropdown extends Filter {
+  id: string;
+  items: string[];
+}
+export interface TableFilterProps {
+  searchInput?: Filter,
+  filters: FilterDropdown[],
+  hideClearFilters?: boolean;
+  className?: string;
+}
+
+export function TableFilters({
+  searchInput, filters, hideClearFilters, className
+}: TableFilterProps) {
+  const clearFilters = useCallback(() => {
+    filters?.forEach((filter) => {
+      filter.onChange(undefined);
+    });
+
+    if (searchInput) {
+      searchInput.onChange('');
+    }
+  }, [filters, searchInput]);
+
+  return (
+    <div
+      className={classNames(
+        className,
+        'flex flex-col justify-between gap-3 items-center',
+        filters.length > 3 ? 'lg:flex-row' : 'md:flex-row'
+      )}
+    >
+      {searchInput && (
+        <Input
+          noTopSpace
+          className="grow-0"
+          endContent={<Search size={18} className="text-foreground-500" />}
+          noBottomSpace
+          placeholder={searchInput.placeholder}
+          value={searchInput.value}
+          onChange={(newValue) => searchInput.onChange(newValue.target.value)}
+        />
+      )}
+      <div className="md:ml-auto w-full md:w-auto gap-3 items-center grid grid-cols-1 sm:flex lg:flex-nowrap grow">
+        {filters?.map((filter) => (
+          <Select
+            key={filter.id}
+            borderRadius="full"
+            variant="bordered"
+            noBottomSpace
+            id="accountType"
+            items={filter.items}
+            placeholder={filter.placeholder}
+            value={filter.value}
+            setValue={(value) => filter.onChange(value)}
+          />
+        ))}
+        {!hideClearFilters && (
+          <Button
+            variant="bordered"
+            className="border-none md:border-default text-foreground-500 bg-transparent w-full md:w-[48px] p-0 min-w-0 rounded-full"
+            onClick={clearFilters}
+          >
+            <FilterX size={18} />
+            <p className="text-center md:hidden text-text_secondary text-sm font-thin">
+              Clear filters
+            </p>
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default TableFilters;

@@ -8,19 +8,25 @@ import {
   TableRow,
   TableCell,
   Pagination,
-  Input,
 } from '@nextui-org/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { columns } from '../../config/data';
 import { Data } from 'types';
 import TableActions from './table-actions';
+import TableFilters, { TableFilterProps } from './table-filters';
+import { OrderBy } from 'utils/enums';
 
-export default function TableComponent() {
+export interface TableProps {
+  filters?: TableFilterProps;
+}
+
+export default function TableComponent({ filters }: TableProps) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
-  const [filterValue, setFilterValue] = useState('');
+  const filterValue = filters?.searchInput?.value;
+  const dropDownValue = filters?.filters[0].value;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,30 +42,36 @@ export default function TableComponent() {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     let filteredData = [...data];
-
+    console.log(start);
+    console.log(end);
     if (filterValue) {
       filteredData = filteredData.filter((item: Data) =>
         item.symbol.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
 
+    console.log(dropDownValue);
+    if (dropDownValue === "Alphabetically") {
+      console.log("hello");
+      filteredData = filteredData.sort((a : Data, b: Data) => {
+        return a.symbol >= b.symbol ? 1 : -1
+      });
+    }
+    else if (dropDownValue === "Latest to oldest") {
+      filteredData = filteredData.sort((a : Data, b: Data) => {
+        return a.closeTime >= b.closeTime ? 1 : -1
+      });
+    }
+    else if (dropDownValue === "Oldest to Latest") {
+      filteredData = filteredData.sort((a : Data, b: Data) => {
+        return a.closeTime >= b.closeTime ? 1 : -1
+      }).reverse();
+    }
+
     return filteredData.slice(start, end);
-  }, [page, data, filterValue]);
+  }, [page, data, filterValue, dropDownValue]);
 
   const pages = Math.ceil(items.length / rowsPerPage);
-  const onSearchChange = useCallback((value?: string) => {
-    if (value) {
-      setFilterValue(value);
-      setPage(1);
-    } else {
-      setFilterValue('');
-    }
-  }, []);
-
-  const onClear = useCallback(() => {
-    setFilterValue('');
-    setPage(1);
-  }, []);
 
   const renderCell = useCallback((item: Data, columnKey: React.Key) => {
     const cellValue = item[columnKey as keyof Data];
@@ -111,14 +123,22 @@ export default function TableComponent() {
 
   return (
     <>
-      <Input
+      {/* <Input
         isClearable
         className="w-full sm:max-w-[44%]"
         placeholder="Search by symbol..."
         value={filterValue}
         onClear={() => onClear()}
         onValueChange={onSearchChange}
-      />
+      /> */}
+      {filters && (
+        <TableFilters
+          className="mb-7"
+          searchInput={filters.searchInput}
+          filters={filters.filters}
+          hideClearFilters={filters.hideClearFilters}
+        />
+        )}
       <Table
         aria-label="Example table with dynamic content"
         bottomContent={

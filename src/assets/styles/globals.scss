@@ -1,5 +1,8 @@
 // note: _mixins are imported on next.config.js do to a limitation at the time of writing this
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import './typography';
 @import './colors';

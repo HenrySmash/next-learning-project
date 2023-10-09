@@ -1,7 +1,7 @@
 import React from 'react';
 
 import 'assets/styles/globals.scss';
-import { FavoritesProvider } from 'utils/FavoritesContext';
+import { FavoritesProvider } from 'context/favorites-context';
 
 import reducer from '../utils/reducer';
 

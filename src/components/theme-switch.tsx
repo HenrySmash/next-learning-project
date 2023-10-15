@@ -2,10 +2,10 @@
 
 import { Button } from '@nextui-org/button';
 import { Spinner } from '@nextui-org/spinner';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import React, { useCallback } from 'react';
 
-import { MoonFilledIcon, SunFilledIcon } from 'assets/icons';
 import { useCheckMounted } from 'hooks/ui/check-mounted';
 
 export function ThemeSwitcher() {
@@ -22,7 +22,7 @@ export function ThemeSwitcher() {
 
   return (
     <Button variant="light" className="cursor-pointer" isIconOnly onClick={switchTheme} disabled={!mounted}>
-      {theme === 'light' ? <MoonFilledIcon size={22} strokeWidth={1} /> : <SunFilledIcon size={22} strokeWidth={1} /> }
+      {theme === 'light' ? <Moon strokeWidth={1} /> : <Sun strokeWidth={1} /> }
     </Button>
   );
 }

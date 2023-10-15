@@ -2,15 +2,12 @@ import {
   Dropdown, DropdownItem, DropdownMenu, SelectionMode
 } from '@nextui-org/react';
 import React, { useCallback, useMemo } from 'react';
-import { Controller, Control } from 'react-hook-form';
 
 import classNames from 'utils/classnames';
 
 import { SelectButton } from './select-button';
 
 interface SelectProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control?: Control<any>;
   label?: string;
   id: string;
   errorMessage?: string;
@@ -58,60 +55,16 @@ export function Select(props: SelectProps) {
     </DropdownMenu>
   ), [props.id, props.items, props.selectionMode]);
 
-  const renderLabel = useCallback(() => {
-    if (props.label) {
-      return (
-        <span
-          className={classNames(
-            'block font-bold text-sm text-foreground pb-1.5',
-            props.errorMessage && '!text-danger'
-          )}
-        >
-          {props.label}
-        </span>
-      );
-    }
-    return null;
-  }, [props.errorMessage, props.label]);
-
-  const renderErrorMessage = () => {
-    if (props.errorMessage) {
-      return (
-        <span className="text-tiny text-danger">{props.errorMessage}</span>
-      );
-    }
-    return null;
-  };
-
   const baseClassNames = 'max-h-[300px] overflow-auto items-start flex flex-col items-start justify-start';
 
-  const renderController = () => (
-    <Controller
-      control={props.control}
-      name={props.id}
-      render={({ field: { onChange, value } }) => (
-        <div className={bottomWrapperSpace}>
-          {renderLabel()}
-          <Dropdown classNames={{ base: baseClassNames }}>
-            <SelectButton {...props} value={value as string} />
-            {renderDropdownMenu(value as string, onChange)}
-          </Dropdown>
-          {renderErrorMessage()}
-        </div>
-      )}
-    />
-  );
-
-  const renderDefault = () => (
+  const render = () => (
     <div className={bottomWrapperSpace}>
-      {renderLabel()}
       <Dropdown classNames={{ base: baseClassNames }}>
         <SelectButton {...props} value={props.value as string} />
         {renderDropdownMenu(props.value as string, props.setValue)}
       </Dropdown>
-      {renderErrorMessage()}
     </div>
   );
 
-  return props.control ? renderController() : renderDefault();
+  return render();
 }

@@ -1,12 +1,11 @@
 import { Button } from '@nextui-org/react';
+import { Heart, HeartOff, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
 import { useFavoritesContext } from 'hooks/favorites-context';
 import { Data } from 'types';
 import { ADD_ITEM, REMOVE_ITEM } from 'utils/actions';
-
-import { DetailsLogo, HeartFilledIcon, HeartOutlineIcon } from '../../assets/icons';
 
 interface TableActionsProps {
   item: Data;
@@ -27,7 +26,7 @@ export default function TableActions({ item }: TableActionsProps) {
     <div className="relative flex justify-center items-center gap-2">
       <Link href={`/${item.symbol}`}>
         <Button isIconOnly size="sm" variant="light">
-          <DetailsLogo className="text-default-300" />
+          <MoreHorizontal className="text-default-300" />
         </Button>
       </Link>
       <Button
@@ -37,9 +36,9 @@ export default function TableActions({ item }: TableActionsProps) {
         onClick={() => AddOrRemoveFavorites(item)}
       >
         {state.data.some((e: Data) => e.symbol === item.symbol) ? (
-          <HeartFilledIcon className="text-danger" />
+          <HeartOff className="text-danger" />
         ) : (
-          <HeartOutlineIcon className="text-danger" />
+          <Heart className="text-danger" />
         )}
       </Button>
     </div>

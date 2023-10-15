@@ -36,7 +36,7 @@ export default function TableWrapper({ items, ordering = OrderBy.ALPASC }: Table
 
   const tableFilters: FilterDropdown[] = [
     {
-      id: 'accountType',
+      id: 'orderType',
       items: [selectorLabel.alpAsc, selectorLabel.alpDesc, selectorLabel.timeAsc, selectorLabel.timeDesc],
       placeholder: selectedOrder,
       value: selectedOrder,

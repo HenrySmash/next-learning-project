@@ -94,6 +94,13 @@ export default function Table({ items, filters }: TableProps) {
               page={page}
               total={pages}
               onChange={(pageNumber) => setPage(pageNumber)}
+              classNames={{
+                wrapper: 'rounded border border-default-200',
+                item: 'text-small rounded-none bg-transparent text-default-700',
+                cursor: 'rounded-none bg-default-700 text-white font-bold shadow-none',
+                prev: 'rounded-none text-foreground-500 bg-white border-r border-r-default-100',
+                next: 'rounded-none text-foreground-500 bg-white border-l border-l-default-100'
+              }}
             />
           </div>
         )}

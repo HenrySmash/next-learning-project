@@ -1,11 +1,7 @@
 import { Input as NextUIInput, InputProps as NextUIInputProps } from '@nextui-org/input';
-import { Eye, EyeOff } from 'lucide-react';
-import React, { useMemo, useState } from 'react';
-import { Controller, Control } from 'react-hook-form';
+import React, { useMemo } from 'react';
 
-interface InputWithControlProps extends NextUIInputProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control?: Control<any>;
+interface InputProps extends NextUIInputProps {
   numInputs?: number;
   noBottomSpace?: boolean
   noTopSpace?: boolean
@@ -13,13 +9,7 @@ interface InputWithControlProps extends NextUIInputProps {
   isToday?: boolean;
 }
 
-export function Input(props: InputWithControlProps) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const toggleVisibility = () => setIsVisible(!isVisible);
-
-  const visibleInputType = isVisible ? 'text' : 'password';
-  const inputType = props.type === 'password' ? visibleInputType : props.type;
-
+export function Input(props: InputProps) {
   function getInputWrapperSpace() {
     if (props.label) {
       return '';
@@ -30,27 +20,20 @@ export function Input(props: InputWithControlProps) {
     return 'mt-[30px]';
   }
 
-  const showPasswordButton = (
-    <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
-      {isVisible ? (
-        <EyeOff className="text-2xl text-default-400 pointer-events-none" strokeWidth={1} />
-      ) : (
-        <Eye className="text-2xl text-default-400 pointer-events-none" strokeWidth={1} />
-      )}
-    </button>
-  );
-
   const bottomWrapperSpace = useMemo(() => {
     if (props.noBottomSpace) {
       return '';
     }
-    return props.errorMessage ? 'mb-[20px]' : 'mb-[40px]';
-  }, [props.noBottomSpace, props.errorMessage]);
+    return 'mb-[40px]';
+  }, [props.noBottomSpace]);
 
   const inputProps = {
     ...props,
     classNames: {
-      input: 'text-sm',
+      input: [
+        'text-sm',
+        'text-foreground-500'
+      ],
       label: 'font-bold text-sm',
       inputWrapper: getInputWrapperSpace(),
       mainWrapper: `${bottomWrapperSpace} justify-end`
@@ -58,29 +41,9 @@ export function Input(props: InputWithControlProps) {
     radius: 'md',
     size: 'lg',
     labelPlacement: 'outside',
-    validationState: props.errorMessage ? 'invalid' : 'valid',
-    endContent: props.type === 'password' ? showPasswordButton : props.endContent,
-    type: inputType
-  } as InputWithControlProps;
-
-  if (props.control && props.id) {
-    return (
-      <Controller
-        control={props.control}
-        name={props.id}
-        render={({ field: { onChange, value } }) => (
-          <NextUIInput
-            autocapitalize="off"
-            {...inputProps}
-            onChange={(event) => {
-              onChange(event); // Call the original onChange function from props
-            }}
-            value={value as string}
-          />
-        )}
-      />
-    );
-  }
+    endContent: props.endContent,
+    type: props.type
+  } as InputProps;
 
   return (
     <NextUIInput

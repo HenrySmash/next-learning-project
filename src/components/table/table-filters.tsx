@@ -46,9 +46,9 @@ export function TableFilters({
           <Select
             key={filter.id}
             borderRadius="full"
-            variant="bordered"
+            variant="flat"
             noBottomSpace
-            id="accountType"
+            id={filter.id}
             items={filter.items}
             placeholder={filter.placeholder}
             value={filter.value}

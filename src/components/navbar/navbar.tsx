@@ -14,7 +14,7 @@ export const Navbar = () => (
   <NextUINavbar
     classNames={{
       wrapper: [
-        'bg-default-100'
+        'bg-default-100 shadow-small px-12'
       ]
     }}
     maxWidth="full"
@@ -22,7 +22,7 @@ export const Navbar = () => (
     <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
       <Link className="flex justify-start items-center gap-4" href="/">
         <Image alt="" priority src={logo} width={100} height={33} />
-        <p className="font-bold text-inherit">Stock Info</p>
+        <h5 className="font-bold text-inherit">Stock Info</h5>
       </Link>
     </NavbarContent>
 

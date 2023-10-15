@@ -3,20 +3,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import './typography';
-@import './colors';
-@import './grid';
+@import './_typography';
 
 html {
-  font-size: 62.5%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: var(--color-white);
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -33,3 +28,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
 }
+
+//fix NextUI bug
+input {
+  background-color: transparent !important;
+}
+
+div:focus, input:focus{
+    outline: 0;
+}
+
+
+
+.container {
+  @apply rounded-lg bg-content1 overflow-hidden w-auto;
+}
+
+.border-t-transparent {
+  border-top-color: transparent;
+}
+.border-r-transparent {
+  border-right-color: transparent;
+}
+
+.border-l-transparent {
+  border-left-color: transparent;
+}
+
+.border-b-transparent {
+  border-bottom-color: transparent;
+}
+
+.wrapper-max-height {
+  height: calc(100vh - 64px);
+}
+

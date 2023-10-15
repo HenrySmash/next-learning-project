@@ -8,7 +8,7 @@ import {
 } from '@nextui-org/react';
 import React from 'react';
 
-import { useFavoritesContext } from 'context/favorites-context';
+import { useFavoritesContext } from 'hooks/favorites-context';
 import { Data } from 'types';
 import { REMOVE_ITEM } from 'utils/actions';
 
@@ -23,10 +23,7 @@ export default function FavoritesPage() {
             <h2>{item.symbol}</h2>
             <Button
               size="sm"
-              onClick={() => dispatch({
-                type: REMOVE_ITEM,
-                payload: { symbol: item.symbol }
-              })}
+              onClick={() => dispatch({ type: REMOVE_ITEM, payload: { item } })}
             >
               Remove
             </Button>

@@ -21,7 +21,7 @@ import TableFilters from './table-filters';
 
 export default function Table({ items, filters }: TableProps) {
   const [page, setPage] = useState<number>(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 5;
   const filterValue = filters?.searchInput?.value;
   const dropDownValue = filters?.filters[0].value;
 

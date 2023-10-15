@@ -2,9 +2,6 @@ import React from 'react';
 
 import 'assets/styles/globals.scss';
 import { NavBarWrapper } from 'components/navbar/navbar-wrapper';
-import { FavoritesProvider } from 'context/favorites-context';
-
-import reducer from '../utils/reducer';
 
 import { Providers } from './providers';
 
@@ -14,18 +11,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head />
-      <body className="min-h-screen bg-background font-sans antialiased">
-        <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
-          <FavoritesProvider reducer={reducer} initialState={{ data: [] }}>
-            <div className="relative flex flex-col h-screen">
-              <NavBarWrapper />
-              <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-                {children}
-              </main>
-            </div>
-          </FavoritesProvider>
+      <body className="h-full min-h-screen">
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          <NavBarWrapper />
+          {children}
         </Providers>
       </body>
     </html>

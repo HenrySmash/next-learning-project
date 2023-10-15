@@ -1,34 +1,36 @@
 'use client';
 
 import React, {
-  createContext, ReactNode, useContext, useReducer
+  createContext, ReactNode, useMemo, useReducer
 } from 'react';
 
-import { Data } from 'types/index';
+import { FavoritesContextType, State } from 'types/index';
 
-export const FavoritesContext = createContext<Data[] | undefined>(undefined);
+import reducer from '../utils/reducer';
+
+const defaultInitialState: State = { data: [] };
+
+export const FavoritesContext = createContext<FavoritesContextType>({
+  state: defaultInitialState,
+  dispatch: () => {}
+});
+
 export const FavoritesProvider = ({
-  reducer,
   initialState,
   children
 }: {
-  reducer: any;
-  initialState: Data[] | undefined;
+  initialState: State;
   children: ReactNode;
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const value = useMemo(() => ({
+    state,
+    dispatch
+  }), [state]);
+
   return (
-    <FavoritesContext.Provider value={{ state, dispatch }}>
+    <FavoritesContext.Provider value={value}>
       {children}
     </FavoritesContext.Provider>
   );
-};
-export const useFavoritesContext = () => {
-  const context = useContext(FavoritesContext);
-
-  if (!context) {
-    throw new Error('useMyContext must be used within a MyProvider');
-  }
-
-  return context;
 };

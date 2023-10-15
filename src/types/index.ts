@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import { Dispatch, SVGProps } from 'react';
 
 import { OrderBy } from 'utils/enums';
 
@@ -56,12 +56,16 @@ export interface TableProps {
   filters?: FilterProps;
 }
 
-export interface Action {
-  type: string;
-  payload: object;
-}
+export type State = {
+  data: Data[]
+};
 
-export interface ReducerArgs {
-  state: object;
-  action: Action;
-}
+export type ActionPayload = {
+  type: string;
+  payload: { item: Data };
+};
+
+export type FavoritesContextType = {
+  state: State;
+  dispatch: Dispatch<ActionPayload>;
+};

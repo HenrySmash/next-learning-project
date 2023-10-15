@@ -59,7 +59,7 @@ export default function Table({ items, filters }: TableProps) {
           <span
             className={parseFloat(item.priceChangePercent) > 0 ? 'text-success' : 'text-danger'}
           >
-            {parseFloat(item.priceChangePercent)}
+            {`${item.priceChangePercent}%`}
           </span>
         ) : '--';
       case 'volume':

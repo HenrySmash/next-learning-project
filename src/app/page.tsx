@@ -17,7 +17,11 @@ export default async function Home() {
   const items = await getData();
 
   if (!items) {
-    return <p>No data</p>;
+    return (
+      <div className="flex justify-center items-center w-full h-full min-h-[100vh] min-w-full">
+        <h1>There is no data to display</h1>
+      </div>
+    );
   }
 
   return <TableWrapper items={items} ordering={orderBy} />;

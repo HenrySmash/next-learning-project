@@ -1,9 +1,12 @@
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import { DetailsLogo, HeartFilledIcon, HeartOutlineIcon } from '../../assets/icons';
+import React from 'react';
+
+import { useFavoritesContext } from 'context/favorites-context';
 import { Data } from 'types';
 import { ADD_ITEM, REMOVE_ITEM } from 'utils/actions';
-import { useFavoritesContext } from 'context/favorites-context';
+
+import { DetailsLogo, HeartFilledIcon, HeartOutlineIcon } from '../../assets/icons';
 
 interface TableActionsProps {
   item: Data;
@@ -11,11 +14,11 @@ interface TableActionsProps {
 
 export default function TableActions({ item }: TableActionsProps) {
   const { state, dispatch } = useFavoritesContext();
-  function AddOrRemoveFavorites(item: Data) {
-    if (state.data.some((e: Data) => e.symbol === item.symbol)) {
-      dispatch({ type: REMOVE_ITEM, payload: { symbol: item.symbol } });
+  function AddOrRemoveFavorites(favoriteItem: Data) {
+    if (state.data.some((e: Data) => e.symbol === favoriteItem.symbol)) {
+      dispatch({ type: REMOVE_ITEM, payload: { symbol: favoriteItem.symbol } });
     } else {
-      dispatch({ type: ADD_ITEM, payload: { item } });
+      dispatch({ type: ADD_ITEM, payload: { favoriteItem } });
     }
   }
   return (
@@ -29,7 +32,8 @@ export default function TableActions({ item }: TableActionsProps) {
         isIconOnly
         size="sm"
         variant="light"
-        onClick={() => AddOrRemoveFavorites(item)}>
+        onClick={() => AddOrRemoveFavorites(item)}
+      >
         {state.data.some((e: Data) => e.symbol === item.symbol) ? (
           <HeartFilledIcon className="text-red-500" />
         ) : (

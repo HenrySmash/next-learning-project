@@ -3,8 +3,6 @@ import { Eye, EyeOff } from 'lucide-react';
 import React, { useMemo, useState } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
-import classNames from 'utils/classnames';
-
 interface InputWithControlProps extends NextUIInputProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control?: Control<any>;
@@ -48,21 +46,6 @@ export function Input(props: InputWithControlProps) {
     }
     return props.errorMessage ? 'mb-[20px]' : 'mb-[40px]';
   }, [props.noBottomSpace, props.errorMessage]);
-
-  const renderLabel = useMemo(
-    () => (
-      <label
-        htmlFor={props.id}
-        className={classNames(
-          'block text-foreground pb-1.5 font-bold text-sm',
-          props.errorMessage && '!text-danger'
-        )}
-      >
-        {props.label}
-      </label>
-    ),
-    [props.errorMessage, props.id, props.label]
-  );
 
   const inputProps = {
     ...props,

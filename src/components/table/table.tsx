@@ -1,113 +1,71 @@
 'use client';
 
 import {
-  Table,
+  Table as TableNextUI,
   TableHeader,
   TableBody,
   TableColumn,
   TableRow,
   TableCell,
-  Pagination,
+  Pagination
 } from '@nextui-org/react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { columns } from '../../config/data';
-import { Data } from 'types';
-import TableActions from './table-actions';
-import TableFilters, { TableFilterProps } from './table-filters';
+import React, { useCallback, useMemo, useState } from 'react';
+
+import { Data, TableProps } from 'types';
 import { OrderBy } from 'utils/enums';
 
-export interface TableProps {
-  filters?: TableFilterProps;
-}
+import { columns } from '../../config/data';
 
-export default function TableComponent({ filters }: TableProps) {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
+import TableActions from './table-actions';
+import TableFilters from './table-filters';
+
+export default function Table({ items, filters }: TableProps) {
+  const [page, setPage] = useState<number>(1);
   const rowsPerPage = 10;
   const filterValue = filters?.searchInput?.value;
   const dropDownValue = filters?.filters[0].value;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/content');
-      const apiData = await response.json();
-      setData(apiData);
-    };
-    fetchData();
-    setIsLoading(false);
-  }, []);
-
-  const items = useMemo(() => {
+  const { pages, filteredItems } = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    let filteredData = [...data];
-    console.log(start);
-    console.log(end);
+    let filteredData = [...items];
     if (filterValue) {
-      filteredData = filteredData.filter((item: Data) =>
-        item.symbol.toLowerCase().includes(filterValue.toLowerCase())
-      );
+      filteredData = filteredData.filter((item: Data) => item.symbol.toLowerCase().includes(filterValue.toLowerCase()));
     }
 
-    console.log(dropDownValue);
-    if (dropDownValue === "Alphabetically") {
-      console.log("hello");
-      filteredData = filteredData.sort((a : Data, b: Data) => {
-        return a.symbol >= b.symbol ? 1 : -1
-      });
-    }
-    else if (dropDownValue === "Latest to oldest") {
-      filteredData = filteredData.sort((a : Data, b: Data) => {
-        return a.closeTime >= b.closeTime ? 1 : -1
-      });
-    }
-    else if (dropDownValue === "Oldest to Latest") {
-      filteredData = filteredData.sort((a : Data, b: Data) => {
-        return a.closeTime >= b.closeTime ? 1 : -1
-      }).reverse();
+    if (dropDownValue === OrderBy.ALPASC) {
+      filteredData = filteredData.sort((a : Data, b: Data) => (a.symbol >= b.symbol ? 1 : -1));
+    } else if (dropDownValue === OrderBy.ALPDESC) {
+      filteredData = filteredData.sort((a : Data, b: Data) => (a.symbol >= b.symbol ? 1 : -1)).reverse();
+    } else if (dropDownValue === OrderBy.TIMEASC) {
+      filteredData = filteredData.sort((a : Data, b: Data) => (a.closeTime >= b.closeTime ? 1 : -1));
+    } else if (dropDownValue === OrderBy.TIMEDESC) {
+      filteredData = filteredData.sort((a : Data, b: Data) => (a.closeTime >= b.closeTime ? 1 : -1)).reverse();
     }
 
-    return filteredData.slice(start, end);
-  }, [page, data, filterValue, dropDownValue]);
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
-  const pages = Math.ceil(items.length / rowsPerPage);
+    return { pages: totalPages, filteredItems: filteredData.slice(start, end) };
+  }, [page, items, filterValue, dropDownValue]);
 
   const renderCell = useCallback((item: Data, columnKey: React.Key) => {
     const cellValue = item[columnKey as keyof Data];
 
     switch (columnKey) {
       case 'openPrice':
-        if (item.openPrice) {
-          return parseFloat(item.openPrice);
-        }
-
-        return '--';
+        return item.openPrice ? parseFloat(item.openPrice) : '--';
       case 'priceChangePercent':
-        if (item.priceChangePercent) {
-          var floatValue = parseFloat(item.priceChangePercent);
-          return (
-            <span
-              className={floatValue > 0 ? 'text-green-600' : 'text-red-600'}>
-              {floatValue}
-            </span>
-          );
-        }
-
-        return '--';
+        return item.priceChangePercent ? (
+          <span
+            className={parseFloat(item.priceChangePercent) > 0 ? 'text-success' : 'text-danger'}
+          >
+            {parseFloat(item.priceChangePercent)}
+          </span>
+        ) : '--';
       case 'volume':
-        if (item.volume) {
-          return parseFloat(item.volume);
-        }
-
-        return '--';
+        return item.priceChangePercent ? parseFloat(item.volume) : '--';
       case 'closeTime':
-        if (item.closeTime) {
-          const date = new Date(item.closeTime);
-          return date.toLocaleString();
-        }
-
-        return '--';
+        return item.closeTime ? new Date(item.closeTime).toLocaleString() : '--';
       case 'actions':
         return <TableActions item={item} />;
       default:
@@ -115,22 +73,8 @@ export default function TableComponent({ filters }: TableProps) {
     }
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!data) return <p>No data</p>;
-
   return (
     <>
-      {/* <Input
-        isClearable
-        className="w-full sm:max-w-[44%]"
-        placeholder="Search by symbol..."
-        value={filterValue}
-        onClear={() => onClear()}
-        onValueChange={onSearchChange}
-      /> */}
       {filters && (
         <TableFilters
           className="mb-7"
@@ -138,10 +82,9 @@ export default function TableComponent({ filters }: TableProps) {
           filters={filters.filters}
           hideClearFilters={filters.hideClearFilters}
         />
-        )}
-      <Table
-        aria-label="Example table with dynamic content"
-        bottomContent={
+      )}
+      <TableNextUI
+        bottomContent={(
           <div className="flex w-full justify-center">
             <Pagination
               isCompact
@@ -150,21 +93,19 @@ export default function TableComponent({ filters }: TableProps) {
               color="secondary"
               page={page}
               total={pages}
-              onChange={(page) => setPage(page)}
+              onChange={(pageNumber) => setPage(pageNumber)}
             />
           </div>
-        }
-        classNames={{
-          wrapper: 'min-h-[222px]',
-        }}>
+        )}
+      >
         <TableHeader columns={columns}>
           {(column: { key: string; label: string }) => (
-            <TableColumn key={column.key} align="center" allowsSorting={true}>
+            <TableColumn key={column.key} align="center" allowsSorting>
               {column.label}
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={items}>
+        <TableBody items={filteredItems}>
           {(item: Data) => (
             <TableRow key={item.symbol}>
               {(columnKey: React.Key) => (
@@ -173,7 +114,7 @@ export default function TableComponent({ filters }: TableProps) {
             </TableRow>
           )}
         </TableBody>
-      </Table>
+      </TableNextUI>
     </>
   );
 }

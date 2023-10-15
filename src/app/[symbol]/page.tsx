@@ -1,12 +1,14 @@
+import React from 'react';
+
 import { Data } from 'types';
 
 export async function generateStaticParams() {
   const data: Data[] = await fetch('http://localhost:3000/api/content').then(
-    (res) => res.json()
+    (res) => res.json() as Promise<Data[]>
   );
 
   return data.map((item) => ({
-    symbol: item.symbol,
+    symbol: item.symbol
   }));
 }
 
@@ -16,16 +18,16 @@ interface Props {
 
 export default async function ItemPage({ params }: Props) {
   const data: Data[] = await fetch('http://localhost:3000/api/content').then(
-    (res) => res.json()
+    (res) => res.json() as Promise<Data[]>
   );
-  const item = data.find((item) => item.symbol === params.symbol)!;
+  const item = data.find((value : Data) => value.symbol === params.symbol)!;
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block justify-center text-center">
-        <h1>{item.symbol}</h1>
+        <h1>{item && item.symbol}</h1>
         <div className="grid grid-cols-4 gap-4">
-          <p>{item.openPrice}</p>
+          <p>{item && item.openPrice}</p>
         </div>
       </div>
     </section>

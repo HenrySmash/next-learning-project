@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { IconSvgProps } from '../../types';
 
 export const DetailsLogo: React.FC<IconSvgProps> = (props) => {

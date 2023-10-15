@@ -1,6 +1,6 @@
 export enum OrderBy {
-    ASC = 'asc',
-    DESC = 'desc',
-    ALP = 'alp'
-  }
-  
+  TIMEASC = 'Close time ascending',
+  TIMEDESC = 'Close time descending',
+  ALPASC = 'Alphabetically A-Z',
+  ALPDESC = 'Alphabetically Z-A'
+}

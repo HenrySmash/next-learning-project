@@ -1,14 +1,19 @@
 'use client';
 
-import React, { createContext, ReactNode, useContext, useReducer } from 'react';
-export const FavoritesContext = createContext<any>(null);
+import React, {
+  createContext, ReactNode, useContext, useReducer
+} from 'react';
+
+import { Data } from 'types/index';
+
+export const FavoritesContext = createContext<Data[] | undefined>(undefined);
 export const FavoritesProvider = ({
   reducer,
   initialState,
-  children,
+  children
 }: {
   reducer: any;
-  initialState: any;
+  initialState: Data[] | undefined;
   children: ReactNode;
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

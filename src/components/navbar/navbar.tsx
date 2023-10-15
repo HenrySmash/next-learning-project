@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 'use client';
 
 import {
@@ -6,36 +8,29 @@ import {
   NavbarBrand,
   NavbarItem
 } from '@nextui-org/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import { ThemeSwitch } from 'components/theme-switch';
-import { Logo } from 'assets/icons';
+import logo from 'assets/images/twistag.svg';
 
 export const Navbar = () => (
-  <NextUINavbar maxWidth="xl" position="sticky">
+  <NextUINavbar
+    classNames={{
+      wrapper: [
+        'bg-default-100'
+      ]
+    }}
+    maxWidth="full"
+    position="sticky"
+  >
     <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
       <NavbarBrand as="li" className="gap-3 max-w-fit">
         <Link className="flex justify-start items-center gap-1" href="/">
-          <Logo />
+          <Image alt="" priority src={logo} width={100} height={33} />
           <p className="font-bold text-inherit">Stock Info</p>
         </Link>
       </NavbarBrand>
-      {/* <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: 'foreground' }),
-                  'data-[active=true]:text-primary data-[active=true]:font-medium'
-                )}
-                color="foreground"
-                href={item.href}>
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul> */}
     </NavbarContent>
 
     <NavbarContent
@@ -45,14 +40,11 @@ export const Navbar = () => (
       <NavbarItem>
         <Link
           color="foreground"
-          className='text-large'
+          className="text-large"
           href="/favorites"
         >
           Favorites
         </Link>
-      </NavbarItem>
-      <NavbarItem className="hidden sm:flex gap-2">
-        <ThemeSwitch />
       </NavbarItem>
     </NavbarContent>
   </NextUINavbar>

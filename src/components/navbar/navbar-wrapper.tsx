@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Navbar } from './navbar';
 
-export async function NavBarWrapper() {
+export function NavBarWrapper() {
   return (
     <Navbar />
   );

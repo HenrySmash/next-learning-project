@@ -1,10 +1,24 @@
 import React from 'react';
 
-import TableWrapper from './(main)';
+import { Data } from 'types';
 import { OrderBy } from 'utils/enums';
 
-export default function Home() {
-  const orderBy = OrderBy.DESC;
+import TableWrapper from './(main)';
 
-  return <TableWrapper ordering={orderBy} />
+const getData = async (): Promise<Data[]> => {
+  const response = await fetch('https://data-api.binance.vision/api/v3/ticker/24hr');
+  const apiData = await response.json() as Data[];
+
+  return apiData;
+};
+
+export default async function Home() {
+  const orderBy = OrderBy.ALPASC;
+  const items = await getData();
+
+  if (!items) {
+    return <p>No data</p>;
+  }
+
+  return <TableWrapper items={items} ordering={orderBy} />;
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import 'assets/styles/globals.scss';
+import { NavBarWrapper } from 'components/navbar/navbar-wrapper';
 import { FavoritesProvider } from 'context/favorites-context';
 
 import reducer from '../utils/reducer';
 
 import { Providers } from './providers';
-import { NavBarWrapper } from 'components/navbar/navbar-wrapper';
 
 export default function RootLayout({
   children

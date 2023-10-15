@@ -1,5 +1,7 @@
 import { SVGProps } from 'react';
 
+import { OrderBy } from 'utils/enums';
+
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
@@ -26,4 +28,40 @@ export interface Data {
   firstId: number;
   lastId: number;
   count: number;
+}
+
+export interface Filter {
+  placeholder?: string;
+  value?: string;
+  onChange: (newValue?: string) => void;
+}
+export interface FilterDropdown extends Filter {
+  id: string;
+  items: string[];
+}
+export interface FilterProps {
+  searchInput?: Filter,
+  filters: FilterDropdown[],
+  hideClearFilters?: boolean;
+  className?: string;
+}
+
+export interface TableWrapperProps {
+  items: Data[];
+  ordering: OrderBy;
+}
+
+export interface TableProps {
+  items: Data[];
+  filters?: FilterProps;
+}
+
+export interface Action {
+  type: string;
+  payload: object;
+}
+
+export interface ReducerArgs {
+  state: object;
+  action: Action;
 }

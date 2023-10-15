@@ -2,30 +2,16 @@
 import { FilterX, Search } from 'lucide-react';
 import React, { useCallback } from 'react';
 
+import { FilterProps } from 'types';
+import classNames from 'utils/classnames';
+
 import { Button } from '../button';
 import { Input } from '../input';
 import { Select } from '../select';
-import classNames from 'utils/classnames';
-
-export interface Filter {
-  placeholder?: string;
-  value: string | undefined;
-  onChange: (newValue: string | undefined) => void;
-}
-export interface FilterDropdown extends Filter {
-  id: string;
-  items: string[];
-}
-export interface TableFilterProps {
-  searchInput?: Filter,
-  filters: FilterDropdown[],
-  hideClearFilters?: boolean;
-  className?: string;
-}
 
 export function TableFilters({
   searchInput, filters, hideClearFilters, className
-}: TableFilterProps) {
+}: FilterProps) {
   const clearFilters = useCallback(() => {
     filters?.forEach((filter) => {
       filter.onChange(undefined);

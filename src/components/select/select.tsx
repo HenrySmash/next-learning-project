@@ -4,8 +4,9 @@ import {
 import React, { useCallback, useMemo } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
-import { SelectButton } from './select-button';
 import classNames from 'utils/classnames';
+
+import { SelectButton } from './select-button';
 
 interface SelectProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

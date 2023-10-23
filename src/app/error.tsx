@@ -4,7 +4,7 @@
 
 import React, { useEffect } from 'react';
 
-export default function Error({
+export default function ErrorPage({
   error,
   reset
 }: {

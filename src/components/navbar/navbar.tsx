@@ -21,7 +21,7 @@ export const Navbar = () => (
   >
     <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
       <Link className="flex justify-start items-center gap-4" href="/">
-        <Image alt="" priority src={logo} width={100} height={33} />
+        <Image alt="" aria-label="" priority src={logo} width={100} height={33} />
         <h5 className="font-bold text-inherit">Stock Info</h5>
       </Link>
     </NavbarContent>

@@ -1,5 +1,3 @@
-'use client';
-
 import { ActionPayload, Data, State } from 'types/index';
 
 import { ADD_ITEM, REMOVE_ITEM } from './actions';

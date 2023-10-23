@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@nextui-org/button';
 import { Spinner } from '@nextui-org/spinner';
 import { Moon, Sun } from 'lucide-react';

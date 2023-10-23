@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Table as TableNextUI,
   TableHeader,
@@ -34,13 +32,13 @@ export default function Table({ items, filters }: TableProps) {
     }
 
     if (dropDownValue === OrderBy.ALPASC) {
-      filteredData = filteredData.sort((a : Data, b: Data) => (a.symbol >= b.symbol ? 1 : -1));
+      filteredData.sort((a : Data, b: Data) => a.symbol.localeCompare(b.symbol));
     } else if (dropDownValue === OrderBy.ALPDESC) {
-      filteredData = filteredData.sort((a : Data, b: Data) => (a.symbol >= b.symbol ? 1 : -1)).reverse();
+      filteredData.sort((a : Data, b: Data) => a.symbol.localeCompare(b.symbol)).reverse();
     } else if (dropDownValue === OrderBy.TIMEASC) {
-      filteredData = filteredData.sort((a : Data, b: Data) => (a.closeTime >= b.closeTime ? 1 : -1));
+      filteredData.sort((a : Data, b: Data) => a.closeTime - b.closeTime);
     } else if (dropDownValue === OrderBy.TIMEDESC) {
-      filteredData = filteredData.sort((a : Data, b: Data) => (a.closeTime >= b.closeTime ? 1 : -1)).reverse();
+      filteredData.sort((a : Data, b: Data) => a.closeTime - b.closeTime).reverse();
     }
 
     const totalPages = Math.ceil(filteredData.length / rowsPerPage);
@@ -84,6 +82,7 @@ export default function Table({ items, filters }: TableProps) {
         />
       )}
       <TableNextUI
+        aria-label="Results table"
         bottomContent={(
           <div className="flex w-full justify-center">
             <Pagination

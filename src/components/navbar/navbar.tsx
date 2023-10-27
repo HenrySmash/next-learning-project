@@ -3,26 +3,23 @@
 'use client';
 
 import { Navbar as NextUINavbar, NavbarContent } from '@nextui-org/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import logo from 'assets/images/twistag.svg';
 import { ThemeSwitcher } from 'components/theme-switch';
 
 export const Navbar = () => (
   <NextUINavbar
     classNames={{
       wrapper: [
-        'bg-default-100 shadow-small px-12'
+        'bg-background-navbar shadow-small px-12'
       ]
     }}
     maxWidth="full"
   >
     <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
       <Link className="flex justify-start items-center gap-4" href="/">
-        <Image alt="" aria-label="" priority src={logo} width={100} height={33} />
-        <h5 className="font-bold text-inherit">Stock Info</h5>
+        <h5 className="font-bold text-inherit text-lg text-text-header">Stock Info</h5>
       </Link>
     </NavbarContent>
 
@@ -32,8 +29,7 @@ export const Navbar = () => (
     >
       <ThemeSwitcher />
       <Link
-        color="foreground"
-        className="text-large"
+        className="text-large text-text-header"
         href="/favorites"
       >
         Favorites

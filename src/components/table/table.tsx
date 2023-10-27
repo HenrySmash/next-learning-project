@@ -84,21 +84,20 @@ export default function Table({ items, filters }: TableProps) {
       <TableNextUI
         aria-label="Results table"
         bottomContent={(
-          <div className="flex w-full justify-center">
+          <div className="flex w-full justify-center mt-5">
             <Pagination
               isCompact
               showControls
               showShadow
-              color="secondary"
               page={page}
               total={pages}
               onChange={(pageNumber) => setPage(pageNumber)}
               classNames={{
                 wrapper: 'rounded border border-default-200',
-                item: 'text-small rounded-none bg-transparent text-default-700',
-                cursor: 'rounded-none bg-default-700 text-white font-bold shadow-none',
-                prev: 'rounded-none text-foreground-500 bg-white border-r border-r-default-100',
-                next: 'rounded-none text-foreground-500 bg-white border-l border-l-default-100'
+                item: 'text-small rounded-none bg-transparent text-text-default',
+                cursor: 'rounded-none bg-background-cursor text-text-default font-bold shadow-none',
+                prev: 'rounded-none text-foreground-500 bg-transparent border-r border-r-default-100',
+                next: 'rounded-none text-foreground-500 bg-transparent border-l border-l-default-100'
               }}
             />
           </div>
@@ -106,7 +105,7 @@ export default function Table({ items, filters }: TableProps) {
       >
         <TableHeader columns={columns}>
           {(column: { key: string; label: string }) => (
-            <TableColumn key={column.key} align="center" allowsSorting>
+            <TableColumn key={column.key} align="center" allowsSorting={false}>
               {column.label}
             </TableColumn>
           )}

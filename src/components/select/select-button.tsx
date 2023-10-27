@@ -24,20 +24,20 @@ export function SelectButton(props: SelectButtonProps) {
         className={classNames(
           props.variant !== 'bordered' && 'bg-default-100 justify-start',
           props.className,
-          'min-w-[150px] px-5'
+          'min-w-[150px] px-5 bg-background-cursor text-text-primary'
         )}
         radius={props.borderRadius ? props.borderRadius : 'lg'}
         variant={props.variant ? props.variant : 'flat'}
       >
         {!props.value ? (
           <span
-            className="text-sm text-foreground-500"
+            className="text-sm text-text-primary"
           >
             {props.placeholder}
           </span>
         ) : (
           <span
-            className="text-sm text-foreground-500"
+            className="text-sm text-text-primary"
           >
             {props.value}
           </span>

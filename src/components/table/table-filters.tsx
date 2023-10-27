@@ -58,11 +58,11 @@ export function TableFilters({
         {!hideClearFilters && (
           <Button
             variant="bordered"
-            className="border-none md:border-default text-foreground-500 bg-transparent w-full md:w-[48px] p-0 min-w-0 rounded-full"
+            className="border-none md:border-default text-text-primary bg-transparent w-full md:w-[48px] p-0 min-w-0 rounded-full"
             onClick={clearFilters}
           >
             <FilterX size={18} />
-            <p className="text-center md:hidden text-text_secondary text-sm font-thin">
+            <p className="text-center md:hidden text-text-primary text-sm font-thin">
               Clear filters
             </p>
           </Button>

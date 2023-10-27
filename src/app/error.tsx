@@ -16,7 +16,7 @@ export default function ErrorPage({
   }, [error]);
 
   return (
-    <div>
+    <div className="flex flex-col align-center mt-5">
       <h2>Something went wrong!</h2>
       <button type="button" onClick={() => reset()}>Try again</button>
     </div>

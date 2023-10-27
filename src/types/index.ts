@@ -1,10 +1,6 @@
-import { Dispatch, SVGProps } from 'react';
+import { Dispatch } from 'react';
 
 import { OrderBy } from 'utils/enums';
-
-export type IconSvgProps = SVGProps<SVGSVGElement> & {
-  size?: number;
-};
 
 export interface Data {
   symbol: string;

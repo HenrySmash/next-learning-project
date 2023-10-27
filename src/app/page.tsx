@@ -19,7 +19,7 @@ export default async function Home() {
   if (!items) {
     return (
       <div className="flex justify-center mt-12 w-full h-full min-h-[100vh] min-w-full">
-        <h1>There is no data to display</h1>
+        <h1 className="text-header">There is no data to display</h1>
       </div>
     );
   }

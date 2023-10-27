@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="h-full min-h-screen">
+      <body className="h-full min-h-screen bg-background-default">
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
           <NavBarWrapper />
           {children}

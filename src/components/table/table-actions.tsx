@@ -26,7 +26,7 @@ export default function TableActions({ item }: TableActionsProps) {
     <div className="relative flex justify-center items-center gap-2">
       <Link href={`/${item.symbol}`}>
         <Button isIconOnly size="sm" variant="light">
-          <MoreHorizontal className="text-default-300" />
+          <MoreHorizontal className="text-icon-primary" />
         </Button>
       </Link>
       <Button

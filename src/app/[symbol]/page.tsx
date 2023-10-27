@@ -13,7 +13,13 @@ export default async function ItemPage({ params }: Props) {
     (res) => res.json() as Promise<Data[]>
   );
   const item = data.find((value : Data) => value.symbol === params.symbol)!;
-
+  if (!item) {
+    return (
+      <div className="flex flex-col align-center mt-5">
+        <h2>There is no item with that symbol, please go to the main page!</h2>
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex justify-center text-center mt-6">
@@ -23,7 +29,7 @@ export default async function ItemPage({ params }: Props) {
         <h3>
           Price Information
         </h3>
-        <hr />
+        <hr className="text-background-primary" />
         <DetailsWrapper className="mt-5">
           <Details label="Price Change" content={parseFloat(item.priceChange)} />
           <Details label="Price Change Percent" content={parseFloat(item.priceChangePercent)} />
@@ -35,27 +41,27 @@ export default async function ItemPage({ params }: Props) {
         <h3>
           Order Book Information
         </h3>
-        <hr />
+        <hr className="text-background-primary" />
         <DetailsWrapper className="mt-5">
           <Details label="Bid Price" content={parseFloat(item.bidPrice)} />
           <Details label="Bid Quantity" content={parseFloat(item.bidQty)} />
-          <Details label="Ask Price" content={item.askPrice} />
+          <Details label="Ask Price" content={parseFloat(item.askPrice)} />
           <Details label="Ask Quantity" content={parseFloat(item.askQty)} />
         </DetailsWrapper>
         <h3>
           Market Summary
         </h3>
-        <hr />
+        <hr className="text-background-primary" />
         <DetailsWrapper className="mt-5">
           <Details label="Open Price" content={parseFloat(item.openPrice)} />
           <Details label="High Price" content={parseFloat(item.highPrice)} />
-          <Details label="Low Price" content={item.lowPrice} />
+          <Details label="Low Price" content={parseFloat(item.lowPrice)} />
           <Details label="Quote Volume" content={parseFloat(item.quoteVolume)} />
         </DetailsWrapper>
         <h3>
           Trade Information
         </h3>
-        <hr />
+        <hr className="text-background-primary" />
         <DetailsWrapper className="mt-5">
           <Details label="Open Time" content={new Date(item.openTime).toLocaleString()} />
           <Details label="Close Time" content={new Date(item.closeTime).toLocaleString()} />

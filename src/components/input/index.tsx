@@ -32,10 +32,11 @@ export function Input(props: InputProps) {
     classNames: {
       input: [
         'text-sm',
-        'text-foreground-500'
+        'text-foreground-500',
+        'placeholder:text-text-primary'
       ],
       label: 'font-bold text-sm',
-      inputWrapper: getInputWrapperSpace(),
+      inputWrapper: `${getInputWrapperSpace()} bg-background-cursor`,
       mainWrapper: `${bottomWrapperSpace} justify-end`
     },
     radius: 'md',
